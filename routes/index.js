@@ -1,0 +1,14 @@
+const express = require('express');
+const User = require('../modules/user');
+const DanhMuc = require('../modules/danh_muc');
+// const Core = require('./core/controllers');
+// const Auth = require('./modules/auth');
+
+const app = express();
+
+// app.use('/core', Core);
+app.use('/user', User);
+// app.use('/danh-muc', DanhMuc);
+// app.use('/auth', Auth);
+
+module.exports = app;

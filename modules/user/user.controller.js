@@ -18,7 +18,7 @@ const UserController = {
   },
 
   async update(req, res) {
-    const user = await UserManager.update(req.body);
+    const user = await UserManager.update(req.param.id, req.body);
     res.json({
       success: true,
       data: user
@@ -26,7 +26,7 @@ const UserController = {
   },
 
   async delete(req, res) {
-    const status = await UserManager.delete(req.body);
+    const status = await UserManager.delete(req.param.id);
     res.json({
       success: true,
       data: status

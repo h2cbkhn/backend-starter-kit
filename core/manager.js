@@ -4,6 +4,7 @@ class Manager {
   constructor() {
     this.DatabaseService = CommonService.DatabaseService;
     this.AuthService = CommonService.AuthService;
+    this.TokenService = CommonService.TokenService;
   }
   
   buildPaginationQuery(queryBuilder, limit = 20, page = 1) {

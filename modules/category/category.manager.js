@@ -8,7 +8,6 @@ class DanhMucManager extends Manager {
     category = this.buildData(data, category);
     category.createdAt = new Date();
     category.updatedAt = new Date();
-    category.userId = auth ? auth._id : null;
     return CategoryModel.create(category);
   }
 

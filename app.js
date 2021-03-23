@@ -2,7 +2,8 @@ const path = require('path');
 const chalk = require('chalk');
 const express = require('express');
 const graphqlHttp = require("express-graphql");
-const bodyParser = require('body-parser');
+const validator = require('validator');
+const expressValidator = require('express-validator');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const dotenv = require('dotenv');
@@ -74,6 +75,16 @@ const fileStorage = multer.diskStorage({
 
 // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
 app.use(express.json()); // application/json
+app.use(expressValidator({
+  customValidators: {
+    isMongoId(value) {
+      if (typeof value !== 'undefined' && value) {
+        return validator.isMongoId(value.toString()); // Validate string only!
+      }
+      return false;
+    },
+  }
+}));
 
 app.use( multer({ storage: fileStorage, fileFilter: fileFilter }).single('image') );
 app.use('/images', express.static(path.join(__dirname, 'images')));

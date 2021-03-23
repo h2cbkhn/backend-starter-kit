@@ -8,7 +8,7 @@ const app = express();
 
 // app.use('/core', Core);
 app.use('/user', User);
-// app.use('/category', Category);
+app.use('/category', Category);
 // app.use('/auth', Auth);
 
 module.exports = app;

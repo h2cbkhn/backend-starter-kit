@@ -10,23 +10,26 @@ const UserController = {
   },
 
   async create(req, res) {
-    const user = await UserManager.create(req.body);
-    res.json({
-      success: true,
-      data: user
-    });
+    const data = await UserManager.create(req.body);
+    if (data && data._id) {
+      res.json({ success: true, data: data });
+    } else {
+      res.json(user);
+    }
+    
   },
 
   async update(req, res) {
-    const user = await UserManager.update(req.param.id, req.body);
-    res.json({
-      success: true,
-      data: user
-    });
+    const data = await UserManager.update(req.params.id, req.body);
+    if (data && data._id) {
+      res.json({ success: true, data: data });
+    } else {
+      res.json(user);
+    }
   },
 
   async delete(req, res) {
-    const status = await UserManager.delete(req.param.id);
+    const status = await UserManager.delete(req.params.id);
     res.json({
       success: true,
       data: status

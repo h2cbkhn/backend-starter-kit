@@ -11,19 +11,19 @@ const CategoryController = {
 
   async create(req, res) {
     const category = await CategoryManager.create(req.auth, req.body);
-    if (category) {
-      res.json({ success: true, data: category, message: "" });
+    if (category && category._id) {
+      res.json({ success: true, data: category, message: [] });
     } else {
-      res.json({ success: false, message: "Không thành công" });
+      res.json({ success: false, message: ["Không thành công"] });
     }
   },
 
   async update(req, res) {
     const category = await CategoryManager.update(req.params.id, req.body);
-    if (category) {
-      res.json({ success: true, data: category, message: "" });
+    if (category && category._id) {
+      res.json({ success: true, data: category, message: [] });
     } else {
-      res.json({ success: false, message: "Không thành công" });
+      res.json({ success: false, message: ["Không thành công"] });
     }
   },
 

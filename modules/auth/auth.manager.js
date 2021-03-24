@@ -23,7 +23,7 @@ class AuthManager extends Manager {
         return callbackError(errors, null);
       }
       if (!user) return callback(null, false, null, ['Tài khoản không tìm thấy']);
-      if (!user.active) return callback(null, false, null, ['Tài khoản chưa được kích hoạt']);
+      // if (!user.active) return callback(null, false, null, ['Tài khoản chưa được kích hoạt']);
       user.comparePassword(password, user.password, (errors, isMatch) => {
         if (errors) return callbackError(errors, null);
         if (!isMatch) return callback(null, false, null, ['Mật khẩu không đúng']);

@@ -3,10 +3,12 @@ const ROLE = require('../../core/constants/role');
 const UserModel = require('./user.model');
 
 class UserManager extends Manager {
-  async search(limit, page, params) {
+  async search(params) {
     const conditions = this.buildFilter(params);
     let queryBuilder = UserModel.find(conditions);
-    queryBuilder = this.buildPaginationQuery(queryBuilder, limit, page);
+    if (params.limit > 0 && params.page >= 0){
+      queryBuilder = this.buildPaginationQuery(queryBuilder, params.limit, params.page);
+    }
     return queryBuilder.exec();
   }
 
@@ -18,11 +20,11 @@ class UserManager extends Manager {
     let user = {};
     user = this.buildData(data, user);
     user.role = ROLE.SUPER_ADMIN;
-    user.status = ROLE.SUPER_ADMIN;
     user.createdAt = new Date();
     user.username = data.username;
     user.updatedAt = new Date();
-    return UserModel.create(user);
+    user = new UserModel (user);
+    return user.save();
   }
 
   async update(id, data) {
@@ -76,6 +78,9 @@ class UserManager extends Manager {
 
   buildFilter(params) {
     const conditions = {};
+    if (typeof params.username !== 'undefined') {
+      conditions.username = params.username;
+    }
     return conditions;
   }
 }

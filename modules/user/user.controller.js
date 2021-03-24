@@ -2,7 +2,7 @@ const UserManager = require('./user.manager');
 
 const UserController = {
   async search(req, res) {
-    const users = await UserManager.search(req.body);
+    const users = await UserManager.search(req.query);
     res.json({
       success: true,
       data: users
@@ -14,7 +14,7 @@ const UserController = {
     if (data && data._id) {
       res.json({ success: true, data: data });
     } else {
-      res.json(user);
+      res.json(data);
     }
     
   },

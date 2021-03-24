@@ -1,20 +1,27 @@
 const bcrypt = require('bcrypt-nodejs');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const jumblator = require("mongoose-jumblator").fieldEncryptionPlugin;
+
+dotenv.config({path: '.env'});
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     default: null,
-    index: true
   },
   email: {
     type: String,
-    lowercase: true
+    lowercase: true,
+    encrypt: true,
+    searchable: true, //searchable field
   },
   password: String,
   username: {
     type: String,
-    lowercase: true
+    lowercase: true,
+    encrypt: true,
+    searchable: true, //searchable field
   },
   avatar: String,
   phone: String,
@@ -36,6 +43,8 @@ const userSchema = new mongoose.Schema({
   },
   updatedAt: Date,
 });
+// process.env.CLIENT_SECRET
+
 
 /**
  * Password hash middleware.
@@ -75,6 +84,8 @@ userSchema.methods.comparePassword = (candidatePassword, passwordHash, cb) => {
     cb(err, isMatch);
   });
 };
+
+userSchema.plugin(jumblator, { secret: process.env.CLIENT_SECRET /* other options */ });
 
 const User = mongoose.model('User', userSchema);
 

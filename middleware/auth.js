@@ -10,11 +10,11 @@ const AuthMiddleware = {
     if (token) {
       jwt.verify(token, process.env.CLIENT_SECRET, (err, decoded) => {
         if (err) {
-          return res.status(401).json({success: false, message: 'Failed to authenticate token.'});
+          return res.status(401).json({success: false, messages: ['Failed to authenticate token.']});
         } else {
           UserModel.findOne({_id: decoded.userId}).lean().cache(240, `USER:${decoded.userId.toString()}`).exec((err, user) => {
             if (err || !user) {
-              res.status(401).json({success: false, message: 'Member doest exist.'});
+              res.status(401).json({success: false, messages: ['Member doest exist.']});
               return;
             }
             req.auth = user;
@@ -25,7 +25,7 @@ const AuthMiddleware = {
     } else {
       return res.status(401).send({
         success: false,
-        message: 'No token provided.'
+        messages: ['No token provided.']
       });
     }
   }

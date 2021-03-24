@@ -13,11 +13,12 @@ class UserManager extends Manager {
   async create(data) {
     const checkUser = await UserModel.findOne({ username: data.username });
     if (checkUser) {
-      return { status: false, data: null ,message: ['username đã tồn tại'] };
+      return { status: false, data: null ,messages: ['username đã tồn tại'] };
     }
     let user = {};
     user = this.buildData(data, user);
     user.role = ROLE.SUPER_ADMIN;
+    user.status = ROLE.SUPER_ADMIN;
     user.createdAt = new Date();
     user.username = data.username;
     user.updatedAt = new Date();

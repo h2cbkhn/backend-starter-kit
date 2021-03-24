@@ -3,7 +3,7 @@ const AuthController = require('./auth.controller');
 
 const router = express.Router();
 
-//GET /api/v1/user/search
+//prefix /api/v1/auth/
 router.post('/login', AuthController.login);
 
 module.exports = router;

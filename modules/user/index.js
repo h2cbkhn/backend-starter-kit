@@ -5,7 +5,7 @@ const AuthMiddleware = require('../../middleware/auth');
 
 const router = express.Router();
 
-//GET /api/v1/user/search
+//prefix /api/v1/user/
 router.get('/search', UserController.search);
 
 router.post('/create', UserController.create);

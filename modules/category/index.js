@@ -5,7 +5,7 @@ const AuthMiddleware = require('../../middleware/auth');
 
 const router = express.Router();
 
-//GET /api/v1/category/search
+//prefix /api/v1/category/
 router.get('/search', CategoryController.search);
 router.post('/create', CategoryController.create);
 router.put('/update/:id', CategoryController.update);

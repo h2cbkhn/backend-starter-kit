@@ -12,7 +12,7 @@ const AuthMiddleware = {
         if (err) {
           return res.status(401).json({success: false, messages: ['Failed to authenticate token.']});
         } else {
-          UserModel.findOne({_id: decoded.userId}).lean().cache(240, `USER:${decoded.userId.toString()}`).exec((err, user) => {
+          UserModel.findOne({_id: decoded._id}).exec((err, user) => {
             if (err || !user) {
               res.status(401).json({success: false, messages: ['Member doest exist.']});
               return;

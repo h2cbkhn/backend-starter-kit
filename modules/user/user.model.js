@@ -13,8 +13,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     lowercase: true,
-    encrypt: true,
-    searchable: true, //searchable field
   },
   password: String,
   username: {

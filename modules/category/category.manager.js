@@ -1,7 +1,7 @@
 const Manager = require('../../core/manager');
 const CategoryModel = require('./category.model');
 
-class DanhMucManager extends Manager {
+class CategoryManager extends Manager {
 
   async create(auth, data) {
     let category = {};
@@ -67,4 +67,4 @@ class DanhMucManager extends Manager {
 
 }
 
-module.exports = new DanhMucManager();
+module.exports = new CategoryManager();
